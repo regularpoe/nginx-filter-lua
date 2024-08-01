@@ -1,0 +1,22 @@
+services:
+
+  openresty:
+    container_name: openresty
+    build:
+      context: .
+      dockerfile: Dockerfile.openresty
+    ports:
+      - '80:80'
+    volumes:
+      - ./lua:/usr/local/openresty/nginx/lua
+      - ./nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+    restart: always
+
+  app:
+    image: app
+    container_name: app
+    ports:
+      - 2408:2408
+    build:
+      context: .
+
